@@ -15,8 +15,6 @@ app = dash.Dash(__name__, external_stylesheets=[dbc.themes.COSMO])
 
 exclude_columns = ['Customer_ID']
 
-color_palette = ['#636EFA', '#EF553B', '#00CC96', '#AB63FA', '#FFA15A', '#19D3F3', '#FF6692', '#B6E880', '#FF97FF', '#FECB52']
-
 dropdown_options = [{'label': col.capitalize(), 'value': col} for col in sorted(data.columns) if col not in exclude_columns]
 
 app.layout = dbc.Container([
@@ -46,12 +44,12 @@ def update_graph(selected_column):
     
     column_description = descriptions_dict.get(selected_column, " ")
 
-    if unique_values <= 5:
-        fig = px.pie(data, names=selected_column, title=f'Distribución de {selected_column.capitalize()}', hole=0.5, color_discrete_sequence=color_palette)
+    if selected_column == 'churn':
+        fig = px.pie(data, names=selected_column, title=f'Distribución de {selected_column.capitalize()}', hole=0.5)
         description = html.P(f"Este histograma muestra la distribución de la variable {selected_column} in the dataset.", className="text-white")
         
-    elif type == 'object':
-        fig = px.histogram(data, x=selected_column, title=f'Distribución de {selected_column.capitalize()}')
+    elif type == 'object' or unique_values <= 5:
+        fig = px.histogram(data, x=selected_column, color='churn', barmode='group', title=f'Distribución de {selected_column.capitalize()}')
         description = html.P(f"Este histograma muestra la distribución de la variable {selected_column} en el dataset.", className="text-white")
     
     elif type == 'float64':   
