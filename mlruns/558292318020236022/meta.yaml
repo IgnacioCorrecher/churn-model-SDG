@@ -1,0 +1,6 @@
+artifact_location: file:///C:/Users/ignacio.correcher/Documents/SDG_Prueba_Tecnica/churn-model-SDG/mlruns/558292318020236022
+creation_time: 1721292016746
+experiment_id: '558292318020236022'
+last_update_time: 1721292016746
+lifecycle_stage: active
+name: RandomForestClassifier

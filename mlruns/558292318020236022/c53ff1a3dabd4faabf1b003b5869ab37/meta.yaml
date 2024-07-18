@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/ignacio.correcher/Documents/SDG_Prueba_Tecnica/churn-model-SDG/mlruns/558292318020236022/c53ff1a3dabd4faabf1b003b5869ab37/artifacts
+end_time: 1721293509742
+entry_point_name: ''
+experiment_id: '558292318020236022'
+lifecycle_stage: active
+run_id: c53ff1a3dabd4faabf1b003b5869ab37
+run_name: bright-elk-895
+run_uuid: c53ff1a3dabd4faabf1b003b5869ab37
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1721293099336
+status: 3
+tags: []
+user_id: ignacio.correcher
