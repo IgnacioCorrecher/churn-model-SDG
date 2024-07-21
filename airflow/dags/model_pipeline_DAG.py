@@ -1,10 +1,10 @@
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from datetime import datetime, timedelta
-from data_cleaning_OOP import DataProcessor
+from data_cleaning import DataProcessor
 from model_train import ModelTrainer
 
-# Define the default arguments
+# Definimos los parámetros por defecto
 default_args = {
     'owner': 'airflow',
     'depends_on_past': False,
@@ -15,7 +15,7 @@ default_args = {
     'retry_delay': timedelta(minutes=2),
 }
 
-# Initialize the DAG
+# Inicializamos el DAG
 dag = DAG(
     'churn_model_DAG',
     default_args=default_args,
@@ -24,7 +24,8 @@ dag = DAG(
     catchup=False,
 )
 
-# Define the tasks that will be executed within the DAG
+# Definimos las diferentes tareas que van a existir en el DAG
+
 def run_data_processor():
     data_processor = DataProcessor()
     data_processor.clean_data()
@@ -45,5 +46,5 @@ task2 = PythonOperator(
     dag=dag,
 )
 
-# Set the task dependencies
+# Establecemos las dependencias entre las tareas
 task1 >> task2

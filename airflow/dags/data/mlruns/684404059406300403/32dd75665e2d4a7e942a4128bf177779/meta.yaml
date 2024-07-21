@@ -1,0 +1,15 @@
+artifact_uri: file:///opt/airflow/dags/data/mlruns/684404059406300403/32dd75665e2d4a7e942a4128bf177779/artifacts
+end_time: 1721558841997
+entry_point_name: ''
+experiment_id: '684404059406300403'
+lifecycle_stage: active
+run_id: 32dd75665e2d4a7e942a4128bf177779
+run_name: enthused-swan-779
+run_uuid: 32dd75665e2d4a7e942a4128bf177779
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1721558595087
+status: 3
+tags: []
+user_id: default

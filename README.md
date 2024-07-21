@@ -11,9 +11,7 @@ Este repositorio contiene el código y documentación para el proyecto de depura
 
 El repositorio está organizado de la siguiente manera:
 
-- `data/`: Contiene los archivos de datos brutos y procesados.
-- `notebooks/`: Jupyter notebooks utilizados para el análisis exploratorio de datos, depuración y desarrollo del modelo.
-- `src/`: Scripts de Python con funciones y clases utilizadas en el proyecto.
-- `models/`: Modelos entrenados y archivos relacionados.
-- `reports/`: Informes y visualizaciones generadas durante el proyecto.
-- `README.md`: Este archivo.
+-   `data/`: Contiene los archivos de datos brutos y procesados.
+-   `notebooks/`: Jupyter notebooks utilizados para el análisis exploratorio de datos, depuración y desarrollo del modelo.
+-   `mlruns/`: Runs y experimentos de mlflow.
+-   `airflow/`: Contiene la estructura de carpetas necesaria en docker para el uso de airflow, y los DAGs usados en el proyecto.

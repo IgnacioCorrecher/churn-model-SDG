@@ -7,10 +7,15 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_selection import SelectKBest, f_classif
 from sklearn.metrics import make_scorer, accuracy_score, roc_auc_score, recall_score, precision_score, f1_score
 import mlflow
-import logging
 
 class ModelTrainer:
+    
+    """ Clase para estructurar los métodos encargados de el entrenamiento del modelo"""
+    
     def __init__(self, data_path='/opt/airflow/dags/data/data_clean.csv', test_size=0.2, random_state=77, cv_folds=5):
+        
+        """Constructor de la clase"""
+        
         self.data_path = data_path
         self.test_size = test_size
         self.random_state = random_state
@@ -25,25 +30,37 @@ class ModelTrainer:
         }
 
     def load_data(self):
+        
+        """ Cargamos los datos y hacemos un train/test split"""
+        
         data = pd.read_csv(self.data_path, delimiter=',', decimal='.')
         X = data.drop(['churn'], axis=1)
         y = data['churn']
         return train_test_split(X, y, test_size=self.test_size, random_state=self.random_state, stratify=y)
 
     def create_pipeline(self, X_train):
+        
+        """ Creamos la pipeline por donde pasaran nuestros datos y se entrenará el modelo."""
+        
         cat_features = X_train.select_dtypes(include=['object']).columns
         num_features = X_train.select_dtypes(include=['int64', 'float64']).columns
 
+        # Pasamos los datos por un scaler y creamos nuevas variables con relación polinómica de grado 2
         num_transf = Pipeline(steps=[
             ('scaler', RobustScaler()),
             ('poly', PolynomialFeatures(degree=2, interaction_only=True, include_bias=False))
         ])
 
+        # Realizamos un OHE sobre las columnas categóricas y montamos el transformer
+        
         transformer = ColumnTransformer([
             ('cat', OneHotEncoder(handle_unknown='ignore'), cat_features),
             ('num', num_transf, num_features)
         ])
 
+
+        # Inicializamos el RFC con los mejores parámetros para el modelo
+        
         RFC = RandomForestClassifier(
             random_state=self.random_state,
             criterion='gini',
@@ -59,6 +76,9 @@ class ModelTrainer:
         ])
 
     def train_and_evaluate(self):
+        
+        """ Crearemos la pipeline con los métodos anteriores y entrenamos el modelo. Finalmente lo evaluamos """
+        
         X_train, X_test, y_train, y_test = self.load_data()
         self.create_pipeline(X_train)
 
@@ -98,8 +118,4 @@ class ModelTrainer:
             for metric, value in test_metrics.items():
                 mlflow.log_metric(f"test_{metric}", value)
 
-        print("Run completed!")
-
-if __name__ == "__main__":
-    trainer = ModelTrainer()
-    trainer.train_and_evaluate()
+        print("¡Entrenamiento terminado!")

@@ -1,0 +1,15 @@
+artifact_uri: file:///opt/airflow/dags/data/mlruns/684404059406300403/d97dedb8581641839bac63ac6583137e/artifacts
+end_time: 1721559814060
+entry_point_name: ''
+experiment_id: '684404059406300403'
+lifecycle_stage: active
+run_id: d97dedb8581641839bac63ac6583137e
+run_name: tasteful-wolf-164
+run_uuid: d97dedb8581641839bac63ac6583137e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1721559565631
+status: 3
+tags: []
+user_id: default
