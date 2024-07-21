@@ -1,0 +1,6 @@
+artifact_location: file:///opt/airflow/dags/data/mlruns/684404059406300403
+creation_time: 1721554141087
+experiment_id: '684404059406300403'
+last_update_time: 1721554141087
+lifecycle_stage: active
+name: RandomForestClassifier

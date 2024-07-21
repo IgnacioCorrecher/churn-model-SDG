@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/ignacio/Documents/SDG_Prueba_Tecnica/churn-model-SDG/mlruns/0558292318020236022/34b28d600c4547cdaa08cae5d5355a97/artifacts
+end_time: 1721376630858
+entry_point_name: ''
+experiment_id: '558292318020236022'
+lifecycle_stage: active
+run_id: 34b28d600c4547cdaa08cae5d5355a97
+run_name: useful-hawk-745
+run_uuid: 34b28d600c4547cdaa08cae5d5355a97
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1721376415377
+status: 4
+tags: []
+user_id: ignacio

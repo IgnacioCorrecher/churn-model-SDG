@@ -1,0 +1,15 @@
+artifact_uri: file:///opt/airflow/dags/data/mlruns/684404059406300403/d17d5c41b0054b6cbf171118a0869334/artifacts
+end_time: 1721555871310
+entry_point_name: ''
+experiment_id: '684404059406300403'
+lifecycle_stage: active
+run_id: d17d5c41b0054b6cbf171118a0869334
+run_name: indecisive-bird-128
+run_uuid: d17d5c41b0054b6cbf171118a0869334
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1721555622729
+status: 3
+tags: []
+user_id: default

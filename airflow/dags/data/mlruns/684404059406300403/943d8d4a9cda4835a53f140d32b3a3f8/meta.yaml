@@ -1,0 +1,15 @@
+artifact_uri: file:///opt/airflow/dags/data/mlruns/684404059406300403/943d8d4a9cda4835a53f140d32b3a3f8/artifacts
+end_time: 1721557729294
+entry_point_name: ''
+experiment_id: '684404059406300403'
+lifecycle_stage: active
+run_id: 943d8d4a9cda4835a53f140d32b3a3f8
+run_name: serious-quail-125
+run_uuid: 943d8d4a9cda4835a53f140d32b3a3f8
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1721557476651
+status: 3
+tags: []
+user_id: default

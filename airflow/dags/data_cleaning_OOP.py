@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from scipy.stats import chi2_contingency
-from sqlalchemy import create_engine
+import os
 
 class DataProcessor:
     def __init__(self, miss_pct_th=33, th_num=0.05, th_chi=0.05, outlier_rate=3, corr_th=0.8):
@@ -94,25 +94,19 @@ class DataProcessor:
         df_red = df.drop(columns=cols_to_drop)
         return df_red
 
-    def save_data_to_postgres(self, data, table_name):
-        engine = create_engine('postgresql+psycopg2://airflow:airflow@postgres/airflow')
-        data.to_sql(table_name, engine, if_exists='replace', index=False)
+    def clean_data(self):
+        input_path = os.path.abspath('/opt/airflow/dags/data/dataset.csv')
+        output_path = os.path.abspath('/opt/airflow/dags/data/data_clean.csv')
+        data = pd.read_csv(input_path, delimiter=';', decimal=',')
 
+        data.drop(["Customer_ID"], axis=1, inplace=True)
 
-def main():
-    data_processor = DataProcessor()
+        data = self.correct_missings(data)
+        data = self.correct_outliers(data)
+        data = self.feature_engineering(data)
 
-    data = pd.read_csv('../../data/dataset.csv', delimiter=';', decimal=',')
-    data_processor.save_data_to_postgres(data, 'data_raw')
-
-    data.drop(["Customer_ID"], axis=1, inplace=True)
-
-    data = data_processor.correct_missings(data)
-    data = data_processor.correct_outliers(data)
-    data = data_processor.feature_engineering(data)
-
-    data_processor.save_data_to_postgres(data, 'data_clean')
-
+        data.to_csv(output_path, index=False)
 
 if __name__ == "__main__":
-    main()
+    data_processor = DataProcessor()
+    data_processor.clean_data()

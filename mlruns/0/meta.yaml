@@ -1,4 +1,5 @@
-artifact_location: file:///C:/Users/ignacio.correcher/Documents/SDG_Prueba_Tecnica/churn-model-SDG/mlruns/0
+#artifact_location: file:///C:/Users/ignacio.correcher/Documents/SDG_Prueba_Tecnica/churn-model-SDG/mlruns/0
+artifact_location: file:///C:/Users/ignacio/Documents/SDG_Prueba_Tecnica/churn-model-SDG/mlruns/0
 creation_time: 1721286167895
 experiment_id: '0'
 last_update_time: 1721286167895

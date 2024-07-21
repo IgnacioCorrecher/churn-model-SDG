@@ -1,0 +1,76 @@
+[2024-07-21T08:59:59.151+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-07-21T08:59:59.182+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: churn_model_DAG.model_training manual__2024-07-21T08:59:48.836218+00:00 [queued]>
+[2024-07-21T08:59:59.404+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: churn_model_DAG.model_training manual__2024-07-21T08:59:48.836218+00:00 [queued]>
+[2024-07-21T08:59:59.410+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2024-07-21T08:59:59.423+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): model_training> on 2024-07-21 08:59:48.836218+00:00
+[2024-07-21T08:59:59.440+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=526) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-07-21T08:59:59.442+0000] {standard_task_runner.py:64} INFO - Started process 544 to run task
+[2024-07-21T08:59:59.441+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'churn_model_DAG', 'model_training', 'manual__2024-07-21T08:59:48.836218+00:00', '--job-id', '465', '--raw', '--subdir', 'DAGS_FOLDER/model_pipeline_DAG.py', '--cfg-path', '/tmp/tmp4d4vt3pz']
+[2024-07-21T08:59:59.444+0000] {standard_task_runner.py:91} INFO - Job 465: Subtask model_training
+[2024-07-21T08:59:59.475+0000] {task_command.py:426} INFO - Running <TaskInstance: churn_model_DAG.model_training manual__2024-07-21T08:59:48.836218+00:00 [running]> on host 6e10856c4017
+[2024-07-21T08:59:59.523+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='churn_model_DAG' AIRFLOW_CTX_TASK_ID='model_training' AIRFLOW_CTX_EXECUTION_DATE='2024-07-21T08:59:48.836218+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-07-21T08:59:48.836218+00:00'
+[2024-07-21T08:59:59.524+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-07-21T08:59:59.906+0000] {logging_mixin.py:188} WARNING - 2024/07/21 08:59:59 INFO mlflow.tracking.fluent: Experiment with name 'RandomForestClassifier' does not exist. Creating a new experiment.
+[2024-07-21T08:59:59.910+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-07-21T08:59:59.911+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/model_pipeline_DAG.py", line 34, in run_model_training
+    trainer.train_and_evaluate()
+  File "/opt/airflow/dags/model_train.py", line 68, in train_and_evaluate
+    with mlflow.start_run():
+         ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/mlflow/tracking/fluent.py", line 313, in start_run
+    client = MlflowClient()
+             ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/mlflow/tracking/client.py", line 134, in __init__
+    self._tracking_client = TrackingServiceClient(final_tracking_uri)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/mlflow/tracking/_tracking_service/client.py", line 79, in __init__
+    self.store
+  File "/home/airflow/.local/lib/python3.12/site-packages/mlflow/tracking/_tracking_service/client.py", line 83, in store
+    return utils._get_store(self.tracking_uri)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/mlflow/tracking/_tracking_service/utils.py", line 205, in _get_store
+    return _tracking_store_registry.get_store(store_uri, artifact_uri)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/mlflow/tracking/_tracking_service/registry.py", line 42, in get_store
+    return self._get_store_with_resolved_uri(resolved_store_uri, artifact_uri)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/mlflow/tracking/_tracking_service/registry.py", line 52, in _get_store_with_resolved_uri
+    return builder(store_uri=resolved_store_uri, artifact_uri=artifact_uri)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/mlflow/tracking/_tracking_service/utils.py", line 130, in _get_file_store
+    return FileStore(store_uri, store_uri)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/mlflow/store/tracking/file_store.py", line 187, in __init__
+    self._create_default_experiment()
+  File "/home/airflow/.local/lib/python3.12/site-packages/mlflow/store/tracking/file_store.py", line 193, in _create_default_experiment
+    mkdir(self.root_directory)
+  File "/home/airflow/.local/lib/python3.12/site-packages/mlflow/utils/file_utils.py", line 214, in mkdir
+    raise e
+  File "/home/airflow/.local/lib/python3.12/site-packages/mlflow/utils/file_utils.py", line 211, in mkdir
+    os.makedirs(target, exist_ok=True)
+  File "<frozen os>", line 225, in makedirs
+PermissionError: [Errno 13] Permission denied: '../mlruns'
+[2024-07-21T08:59:59.928+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=churn_model_DAG, task_id=model_training, run_id=manual__2024-07-21T08:59:48.836218+00:00, execution_date=20240721T085948, start_date=20240721T085959, end_date=20240721T085959
+[2024-07-21T08:59:59.949+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 465 for task model_training ([Errno 13] Permission denied: '../mlruns'; 544)
+[2024-07-21T08:59:59.960+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2024-07-21T08:59:59.974+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-07-21T08:59:59.975+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

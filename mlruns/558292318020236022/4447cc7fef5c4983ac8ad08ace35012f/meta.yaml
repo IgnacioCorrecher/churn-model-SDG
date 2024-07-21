@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/ignacio.correcher/Documents/SDG_Prueba_Tecnica/churn-model-SDG/mlruns/558292318020236022/4447cc7fef5c4983ac8ad08ace35012f/artifacts
+end_time: 1721375197448
+entry_point_name: ''
+experiment_id: '558292318020236022'
+lifecycle_stage: active
+run_id: 4447cc7fef5c4983ac8ad08ace35012f
+run_name: bustling-pug-748
+run_uuid: 4447cc7fef5c4983ac8ad08ace35012f
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1721374984775
+status: 4
+tags: []
+user_id: ignacio

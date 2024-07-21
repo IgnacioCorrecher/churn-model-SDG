@@ -48,9 +48,6 @@ pipeline = Pipeline(steps=[
     ('classifier', RFC)
 ])
 
-
-curr_datetime = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-
 mlflow.set_experiment(f"RandomForestClassifier")
 
 

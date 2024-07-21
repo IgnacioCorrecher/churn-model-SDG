@@ -1,0 +1,44 @@
+[2024-07-21T08:52:59.117+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-07-21T08:52:59.139+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: churn_model_DAG.data_processing manual__2024-07-21T08:52:56.825766+00:00 [queued]>
+[2024-07-21T08:52:59.274+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: churn_model_DAG.data_processing manual__2024-07-21T08:52:56.825766+00:00 [queued]>
+[2024-07-21T08:52:59.275+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2024-07-21T08:52:59.281+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): data_processing> on 2024-07-21 08:52:56.825766+00:00
+[2024-07-21T08:52:59.295+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=266) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-07-21T08:52:59.301+0000] {standard_task_runner.py:64} INFO - Started process 284 to run task
+[2024-07-21T08:52:59.301+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'churn_model_DAG', 'data_processing', 'manual__2024-07-21T08:52:56.825766+00:00', '--job-id', '458', '--raw', '--subdir', 'DAGS_FOLDER/model_pipeline_DAG.py', '--cfg-path', '/tmp/tmpdoluhemp']
+[2024-07-21T08:52:59.305+0000] {standard_task_runner.py:91} INFO - Job 458: Subtask data_processing
+[2024-07-21T08:52:59.357+0000] {task_command.py:426} INFO - Running <TaskInstance: churn_model_DAG.data_processing manual__2024-07-21T08:52:56.825766+00:00 [running]> on host 6e10856c4017
+[2024-07-21T08:52:59.405+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='churn_model_DAG' AIRFLOW_CTX_TASK_ID='data_processing' AIRFLOW_CTX_EXECUTION_DATE='2024-07-21T08:52:56.825766+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-07-21T08:52:56.825766+00:00'
+[2024-07-21T08:52:59.406+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-07-21T08:53:01.241+0000] {logging_mixin.py:188} INFO - Se van a dropear las siguientes por excesivos nulos:
+[2024-07-21T08:53:01.244+0000] {logging_mixin.py:188} INFO -  ['ownrent', 'numbcars', 'HHstatin', 'dwllsize']
+[2024-07-21T08:53:01.692+0000] {logging_mixin.py:188} INFO - Se van a imputar con la mediana las siguientes columnas:
+[2024-07-21T08:53:01.693+0000] {logging_mixin.py:188} INFO -  ['mou_Mean', 'totmrc_Mean', 'hnd_price', 'eqpdays']
+[2024-07-21T08:53:01.710+0000] {logging_mixin.py:188} INFO - Se van a dropear las siguientes por baja correlación con la columna churn:
+[2024-07-21T08:53:01.710+0000] {logging_mixin.py:188} INFO -  ['rev_Mean', 'da_Mean', 'ovrmou_Mean', 'ovrrev_Mean', 'vceovr_Mean', 'datovr_Mean', 'roam_Mean', 'change_mou', 'change_rev', 'avg6mou', 'avg6qty', 'avg6rev', 'phones', 'models', 'truck', 'rv', 'lor', 'adults', 'income', 'forgntvl']
+[2024-07-21T08:53:01.934+0000] {logging_mixin.py:188} INFO - Se van a imputar con la moda las siguientes columnas:
+[2024-07-21T08:53:01.935+0000] {logging_mixin.py:188} INFO -  ['hnd_webcap', 'ethnic', 'dualband', 'area', 'refurb_new', 'marital', 'prizm_social_one', 'creditcd', 'infobase', 'dwlltype', 'kid0_2']
+[2024-07-21T08:53:02.023+0000] {logging_mixin.py:188} INFO - Se van a dropear las siguientes por baja correlación con la columna churn:
+[2024-07-21T08:53:02.025+0000] {logging_mixin.py:188} INFO -  ['kid3_5', 'kid16_17', 'kid11_15', 'kid6_10']
+[2024-07-21T08:53:02.846+0000] {logging_mixin.py:188} INFO - Par: (plcd_vce_Mean, comp_vce_Mean) - Correlación: 0.95
+[2024-07-21T08:53:02.849+0000] {logging_mixin.py:188} INFO - Par: (ccrndmou_Mean, cc_mou_Mean) - Correlación: 0.83
+[2024-07-21T08:53:02.850+0000] {logging_mixin.py:188} INFO - Par: (recv_vce_Mean, inonemin_Mean) - Correlación: 0.85
+[2024-07-21T08:53:02.853+0000] {logging_mixin.py:188} INFO - Par: (plcd_vce_Mean, peak_vce_Mean) - Correlación: 0.81
+[2024-07-21T08:53:02.855+0000] {logging_mixin.py:188} INFO - Par: (plcd_vce_Mean, attempt_Mean) - Correlación: 0.99
+[2024-07-21T08:53:02.855+0000] {logging_mixin.py:188} INFO - Par: (plcd_vce_Mean, complete_Mean) - Correlación: 0.95
+[2024-07-21T08:53:02.857+0000] {logging_mixin.py:188} INFO - Par: (totcalls, totmou) - Correlación: 0.81
+[2024-07-21T08:53:02.858+0000] {logging_mixin.py:188} INFO - Par: (totrev, adjrev) - Correlación: 0.99
+[2024-07-21T08:53:02.858+0000] {logging_mixin.py:188} INFO - Par: (totcalls, adjmou) - Correlación: 0.81
+[2024-07-21T08:53:02.858+0000] {logging_mixin.py:188} INFO - Par: (totcalls, adjqty) - Correlación: 0.99
+[2024-07-21T08:53:02.860+0000] {logging_mixin.py:188} INFO - Par: (mou_Mean, avgmou) - Correlación: 0.81
+[2024-07-21T08:53:02.862+0000] {logging_mixin.py:188} INFO - Par: (avgmou, avgqty) - Correlación: 0.81
+[2024-07-21T08:53:02.862+0000] {logging_mixin.py:188} INFO - Par: (mou_Mean, avg3mou) - Correlación: 0.95
+[2024-07-21T08:53:02.863+0000] {logging_mixin.py:188} INFO - Par: (plcd_vce_Mean, avg3qty) - Correlación: 0.81
+[2024-07-21T08:53:05.763+0000] {python.py:237} INFO - Done. Returned value was: None
+[2024-07-21T08:53:05.772+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-07-21T08:53:05.788+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=churn_model_DAG, task_id=data_processing, run_id=manual__2024-07-21T08:52:56.825766+00:00, execution_date=20240721T085256, start_date=20240721T085259, end_date=20240721T085305
+[2024-07-21T08:53:05.849+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2024-07-21T08:53:05.882+0000] {taskinstance.py:3503} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2024-07-21T08:53:05.884+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

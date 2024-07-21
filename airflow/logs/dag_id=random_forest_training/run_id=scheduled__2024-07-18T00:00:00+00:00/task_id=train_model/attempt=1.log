@@ -1,0 +1,224 @@
+[2024-07-19T11:19:56.971+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-07-19T11:19:56.987+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: random_forest_training.train_model scheduled__2024-07-18T00:00:00+00:00 [queued]>
+[2024-07-19T11:19:56.992+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: random_forest_training.train_model scheduled__2024-07-18T00:00:00+00:00 [queued]>
+[2024-07-19T11:19:56.993+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2024-07-19T11:19:57.001+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): train_model> on 2024-07-18 00:00:00+00:00
+[2024-07-19T11:19:57.015+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=124) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-07-19T11:19:57.017+0000] {standard_task_runner.py:64} INFO - Started process 148 to run task
+[2024-07-19T11:19:57.017+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'random_forest_training', 'train_model', 'scheduled__2024-07-18T00:00:00+00:00', '--job-id', '38', '--raw', '--subdir', 'DAGS_FOLDER/model_train_dag.py', '--cfg-path', '/tmp/tmp42ogyeki']
+[2024-07-19T11:19:57.019+0000] {standard_task_runner.py:91} INFO - Job 38: Subtask train_model
+[2024-07-19T11:19:57.048+0000] {task_command.py:426} INFO - Running <TaskInstance: random_forest_training.train_model scheduled__2024-07-18T00:00:00+00:00 [running]> on host 6e10856c4017
+[2024-07-19T11:19:57.094+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='random_forest_training' AIRFLOW_CTX_TASK_ID='train_model' AIRFLOW_CTX_EXECUTION_DATE='2024-07-18T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-07-18T00:00:00+00:00'
+[2024-07-19T11:19:57.095+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-07-19T11:19:57.118+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-07-19T11:19:57.119+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/model_train_dag.py", line 16, in train_model
+    data = pd.read_csv('/path/to/data/data_clean.csv', delimiter=',', decimal='.')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 948, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 611, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1448, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1705, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/common.py", line 863, in get_handle
+    handle = open(
+             ^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/path/to/data/data_clean.csv'
+[2024-07-19T11:19:57.127+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=random_forest_training, task_id=train_model, run_id=scheduled__2024-07-18T00:00:00+00:00, execution_date=20240718T000000, start_date=20240719T111956, end_date=20240719T111957
+[2024-07-19T11:19:57.136+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 38 for task train_model ([Errno 2] No such file or directory: '/path/to/data/data_clean.csv'; 148)
+[2024-07-19T11:19:57.157+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2024-07-19T11:19:57.167+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-07-19T11:19:57.168+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
+[2024-07-19T11:20:57.135+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-07-19T11:20:57.147+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: random_forest_training.train_model scheduled__2024-07-18T00:00:00+00:00 [queued]>
+[2024-07-19T11:20:57.151+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: random_forest_training.train_model scheduled__2024-07-18T00:00:00+00:00 [queued]>
+[2024-07-19T11:20:57.151+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2024-07-19T11:20:57.301+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): train_model> on 2024-07-18 00:00:00+00:00
+[2024-07-19T11:20:57.313+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=164) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-07-19T11:20:57.314+0000] {standard_task_runner.py:64} INFO - Started process 173 to run task
+[2024-07-19T11:20:57.313+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'random_forest_training', 'train_model', 'scheduled__2024-07-18T00:00:00+00:00', '--job-id', '40', '--raw', '--subdir', 'DAGS_FOLDER/model_train_dag.py', '--cfg-path', '/tmp/tmpr35ftp0b']
+[2024-07-19T11:20:57.315+0000] {standard_task_runner.py:91} INFO - Job 40: Subtask train_model
+[2024-07-19T11:20:57.351+0000] {task_command.py:426} INFO - Running <TaskInstance: random_forest_training.train_model scheduled__2024-07-18T00:00:00+00:00 [running]> on host 6e10856c4017
+[2024-07-19T11:20:57.394+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='random_forest_training' AIRFLOW_CTX_TASK_ID='train_model' AIRFLOW_CTX_EXECUTION_DATE='2024-07-18T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-07-18T00:00:00+00:00'
+[2024-07-19T11:20:57.394+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-07-19T11:20:57.403+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-07-19T11:20:57.404+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/model_train_dag.py", line 16, in train_model
+    data = pd.read_csv('/path/to/data/data_clean.csv', delimiter=',', decimal='.')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 948, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 611, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1448, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1705, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/common.py", line 863, in get_handle
+    handle = open(
+             ^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/path/to/data/data_clean.csv'
+[2024-07-19T11:20:57.421+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=random_forest_training, task_id=train_model, run_id=scheduled__2024-07-18T00:00:00+00:00, execution_date=20240718T000000, start_date=20240719T112057, end_date=20240719T112057
+[2024-07-19T11:20:57.432+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 40 for task train_model ([Errno 2] No such file or directory: '/path/to/data/data_clean.csv'; 173)
+[2024-07-19T11:20:57.454+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2024-07-19T11:20:57.463+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-07-19T11:20:57.464+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
+[2024-07-19T11:31:50.897+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-07-19T11:31:50.911+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: random_forest_training.train_model scheduled__2024-07-18T00:00:00+00:00 [queued]>
+[2024-07-19T11:31:50.915+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: random_forest_training.train_model scheduled__2024-07-18T00:00:00+00:00 [queued]>
+[2024-07-19T11:31:50.916+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2024-07-19T11:31:51.004+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): train_model> on 2024-07-18 00:00:00+00:00
+[2024-07-19T11:31:51.009+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=498) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-07-19T11:31:51.011+0000] {standard_task_runner.py:64} INFO - Started process 507 to run task
+[2024-07-19T11:31:51.010+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'random_forest_training', 'train_model', 'scheduled__2024-07-18T00:00:00+00:00', '--job-id', '44', '--raw', '--subdir', 'DAGS_FOLDER/model_train_dag.py', '--cfg-path', '/tmp/tmpilt1k480']
+[2024-07-19T11:31:51.012+0000] {standard_task_runner.py:91} INFO - Job 44: Subtask train_model
+[2024-07-19T11:31:51.038+0000] {task_command.py:426} INFO - Running <TaskInstance: random_forest_training.train_model scheduled__2024-07-18T00:00:00+00:00 [running]> on host 6e10856c4017
+[2024-07-19T11:31:51.078+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='random_forest_training' AIRFLOW_CTX_TASK_ID='train_model' AIRFLOW_CTX_EXECUTION_DATE='2024-07-18T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-07-18T00:00:00+00:00'
+[2024-07-19T11:31:51.079+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-07-19T11:31:51.088+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-07-19T11:31:51.089+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/model_train_dag.py", line 16, in train_model
+    data = pd.read_csv('../../data/dataset.csv', delimiter=';', decimal=',')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 948, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 611, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1448, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1705, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/common.py", line 863, in get_handle
+    handle = open(
+             ^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '../../data/dataset.csv'
+[2024-07-19T11:31:51.095+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=random_forest_training, task_id=train_model, run_id=scheduled__2024-07-18T00:00:00+00:00, execution_date=20240718T000000, start_date=20240719T113150, end_date=20240719T113151
+[2024-07-19T11:31:51.101+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 44 for task train_model ([Errno 2] No such file or directory: '../../data/dataset.csv'; 507)
+[2024-07-19T11:31:51.110+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2024-07-19T11:31:51.120+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-07-19T11:31:51.121+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
+[2024-07-19T11:45:47.727+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-07-19T11:45:47.751+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: random_forest_training.train_model scheduled__2024-07-18T00:00:00+00:00 [queued]>
+[2024-07-19T11:45:47.759+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: random_forest_training.train_model scheduled__2024-07-18T00:00:00+00:00 [queued]>
+[2024-07-19T11:45:47.760+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2024-07-19T11:45:48.196+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): train_model> on 2024-07-18 00:00:00+00:00
+[2024-07-19T11:45:48.223+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=880) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-07-19T11:45:48.226+0000] {standard_task_runner.py:64} INFO - Started process 911 to run task
+[2024-07-19T11:45:48.225+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'random_forest_training', 'train_model', 'scheduled__2024-07-18T00:00:00+00:00', '--job-id', '48', '--raw', '--subdir', 'DAGS_FOLDER/model_train_dag.py', '--cfg-path', '/tmp/tmp8rhzyp9t']
+[2024-07-19T11:45:48.229+0000] {standard_task_runner.py:91} INFO - Job 48: Subtask train_model
+[2024-07-19T11:45:48.280+0000] {task_command.py:426} INFO - Running <TaskInstance: random_forest_training.train_model scheduled__2024-07-18T00:00:00+00:00 [running]> on host 6e10856c4017
+[2024-07-19T11:45:48.352+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='random_forest_training' AIRFLOW_CTX_TASK_ID='train_model' AIRFLOW_CTX_EXECUTION_DATE='2024-07-18T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-07-18T00:00:00+00:00'
+[2024-07-19T11:45:48.353+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-07-19T11:45:48.365+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-07-19T11:45:48.365+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/model_train_dag.py", line 16, in train_model
+    data = pd.read_csv('../data/data_clean.csv', delimiter=';', decimal=',')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 948, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 611, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1448, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1705, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/common.py", line 863, in get_handle
+    handle = open(
+             ^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '../data/data_clean.csv'
+[2024-07-19T11:45:48.374+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=random_forest_training, task_id=train_model, run_id=scheduled__2024-07-18T00:00:00+00:00, execution_date=20240718T000000, start_date=20240719T114547, end_date=20240719T114548
+[2024-07-19T11:45:48.381+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 48 for task train_model ([Errno 2] No such file or directory: '../data/data_clean.csv'; 911)
+[2024-07-19T11:45:48.409+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2024-07-19T11:45:48.420+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-07-19T11:45:48.420+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

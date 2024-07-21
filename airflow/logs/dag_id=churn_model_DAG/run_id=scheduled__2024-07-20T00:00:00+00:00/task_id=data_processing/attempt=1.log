@@ -1,0 +1,364 @@
+[2024-07-21T08:24:41.653+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-07-21T08:24:41.667+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: churn_model_DAG.data_processing scheduled__2024-07-20T00:00:00+00:00 [queued]>
+[2024-07-21T08:24:41.773+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: churn_model_DAG.data_processing scheduled__2024-07-20T00:00:00+00:00 [queued]>
+[2024-07-21T08:24:41.774+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2024-07-21T08:24:41.784+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): data_processing> on 2024-07-20 00:00:00+00:00
+[2024-07-21T08:24:41.793+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=1213) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-07-21T08:24:41.801+0000] {standard_task_runner.py:64} INFO - Started process 1231 to run task
+[2024-07-21T08:24:41.805+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'churn_model_DAG', 'data_processing', 'scheduled__2024-07-20T00:00:00+00:00', '--job-id', '442', '--raw', '--subdir', 'DAGS_FOLDER/model_pipeline_DAG.py', '--cfg-path', '/tmp/tmpwqpi6_0t']
+[2024-07-21T08:24:41.812+0000] {standard_task_runner.py:91} INFO - Job 442: Subtask data_processing
+[2024-07-21T08:24:41.858+0000] {task_command.py:426} INFO - Running <TaskInstance: churn_model_DAG.data_processing scheduled__2024-07-20T00:00:00+00:00 [running]> on host 6e10856c4017
+[2024-07-21T08:24:41.899+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='churn_model_DAG' AIRFLOW_CTX_TASK_ID='data_processing' AIRFLOW_CTX_EXECUTION_DATE='2024-07-20T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-07-20T00:00:00+00:00'
+[2024-07-21T08:24:41.900+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-07-21T08:24:41.914+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-07-21T08:24:41.914+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/model_pipeline_DAG.py", line 30, in run_data_processor
+    data_processor.clean_data()
+  File "/opt/airflow/dags/data_cleaning_OOP.py", line 103, in clean_data
+    data = pd.read_csv('../data/dataset.csv', delimiter=';', decimal=',')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 948, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 611, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1448, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1705, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/common.py", line 863, in get_handle
+    handle = open(
+             ^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '../data/dataset.csv'
+[2024-07-21T08:24:41.925+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=churn_model_DAG, task_id=data_processing, run_id=scheduled__2024-07-20T00:00:00+00:00, execution_date=20240720T000000, start_date=20240721T082441, end_date=20240721T082441
+[2024-07-21T08:24:41.936+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 442 for task data_processing ([Errno 2] No such file or directory: '../data/dataset.csv'; 1231)
+[2024-07-21T08:24:41.951+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2024-07-21T08:24:41.972+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-07-21T08:24:41.973+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
+[2024-07-21T08:42:15.682+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-07-21T08:42:15.694+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: churn_model_DAG.data_processing scheduled__2024-07-20T00:00:00+00:00 [queued]>
+[2024-07-21T08:42:15.786+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: churn_model_DAG.data_processing scheduled__2024-07-20T00:00:00+00:00 [queued]>
+[2024-07-21T08:42:15.786+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2024-07-21T08:42:15.792+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): data_processing> on 2024-07-20 00:00:00+00:00
+[2024-07-21T08:42:15.799+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=1744) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-07-21T08:42:15.800+0000] {standard_task_runner.py:64} INFO - Started process 1753 to run task
+[2024-07-21T08:42:15.800+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'churn_model_DAG', 'data_processing', 'scheduled__2024-07-20T00:00:00+00:00', '--job-id', '449', '--raw', '--subdir', 'DAGS_FOLDER/model_pipeline_DAG.py', '--cfg-path', '/tmp/tmpjn6_wpnd']
+[2024-07-21T08:42:15.802+0000] {standard_task_runner.py:91} INFO - Job 449: Subtask data_processing
+[2024-07-21T08:42:15.841+0000] {task_command.py:426} INFO - Running <TaskInstance: churn_model_DAG.data_processing scheduled__2024-07-20T00:00:00+00:00 [running]> on host 6e10856c4017
+[2024-07-21T08:42:15.898+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='churn_model_DAG' AIRFLOW_CTX_TASK_ID='data_processing' AIRFLOW_CTX_EXECUTION_DATE='2024-07-20T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-07-20T00:00:00+00:00'
+[2024-07-21T08:42:15.899+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-07-21T08:42:15.908+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-07-21T08:42:15.909+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/model_pipeline_DAG.py", line 30, in run_data_processor
+    data_processor.clean_data()
+  File "/opt/airflow/dags/data_cleaning_OOP.py", line 100, in clean_data
+    data = pd.read_csv(input_path, delimiter=';', decimal=',')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 948, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 611, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1448, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1705, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/common.py", line 863, in get_handle
+    handle = open(
+             ^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/opt/airflow/data/dataset.csv'
+[2024-07-21T08:42:15.916+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=churn_model_DAG, task_id=data_processing, run_id=scheduled__2024-07-20T00:00:00+00:00, execution_date=20240720T000000, start_date=20240721T084215, end_date=20240721T084215
+[2024-07-21T08:42:15.922+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 449 for task data_processing ([Errno 2] No such file or directory: '/opt/airflow/data/dataset.csv'; 1753)
+[2024-07-21T08:42:15.941+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2024-07-21T08:42:15.953+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-07-21T08:42:15.953+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
+[2024-07-21T08:43:18.509+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-07-21T08:43:18.522+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: churn_model_DAG.data_processing scheduled__2024-07-20T00:00:00+00:00 [queued]>
+[2024-07-21T08:43:18.605+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: churn_model_DAG.data_processing scheduled__2024-07-20T00:00:00+00:00 [queued]>
+[2024-07-21T08:43:18.606+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2024-07-21T08:43:18.612+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): data_processing> on 2024-07-20 00:00:00+00:00
+[2024-07-21T08:43:18.616+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=1782) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-07-21T08:43:18.618+0000] {standard_task_runner.py:64} INFO - Started process 1791 to run task
+[2024-07-21T08:43:18.618+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'churn_model_DAG', 'data_processing', 'scheduled__2024-07-20T00:00:00+00:00', '--job-id', '450', '--raw', '--subdir', 'DAGS_FOLDER/model_pipeline_DAG.py', '--cfg-path', '/tmp/tmpkpdtid59']
+[2024-07-21T08:43:18.620+0000] {standard_task_runner.py:91} INFO - Job 450: Subtask data_processing
+[2024-07-21T08:43:18.653+0000] {task_command.py:426} INFO - Running <TaskInstance: churn_model_DAG.data_processing scheduled__2024-07-20T00:00:00+00:00 [running]> on host 6e10856c4017
+[2024-07-21T08:43:18.696+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='churn_model_DAG' AIRFLOW_CTX_TASK_ID='data_processing' AIRFLOW_CTX_EXECUTION_DATE='2024-07-20T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-07-20T00:00:00+00:00'
+[2024-07-21T08:43:18.697+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-07-21T08:43:18.710+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-07-21T08:43:18.710+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/model_pipeline_DAG.py", line 30, in run_data_processor
+    data_processor.clean_data()
+  File "/opt/airflow/dags/data_cleaning_OOP.py", line 100, in clean_data
+    data = pd.read_csv(input_path, delimiter=';', decimal=',')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 948, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 611, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1448, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1705, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/common.py", line 863, in get_handle
+    handle = open(
+             ^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/opt/airflow/data/dataset.csv'
+[2024-07-21T08:43:18.731+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=churn_model_DAG, task_id=data_processing, run_id=scheduled__2024-07-20T00:00:00+00:00, execution_date=20240720T000000, start_date=20240721T084318, end_date=20240721T084318
+[2024-07-21T08:43:18.781+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 450 for task data_processing ([Errno 2] No such file or directory: '/opt/airflow/data/dataset.csv'; 1791)
+[2024-07-21T08:43:18.797+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2024-07-21T08:43:18.821+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-07-21T08:43:18.845+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
+[2024-07-21T08:47:45.159+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-07-21T08:47:45.171+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: churn_model_DAG.data_processing scheduled__2024-07-20T00:00:00+00:00 [queued]>
+[2024-07-21T08:47:45.249+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: churn_model_DAG.data_processing scheduled__2024-07-20T00:00:00+00:00 [queued]>
+[2024-07-21T08:47:45.250+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2024-07-21T08:47:45.255+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): data_processing> on 2024-07-20 00:00:00+00:00
+[2024-07-21T08:47:45.261+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=105) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-07-21T08:47:45.262+0000] {standard_task_runner.py:64} INFO - Started process 114 to run task
+[2024-07-21T08:47:45.262+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'churn_model_DAG', 'data_processing', 'scheduled__2024-07-20T00:00:00+00:00', '--job-id', '455', '--raw', '--subdir', 'DAGS_FOLDER/model_pipeline_DAG.py', '--cfg-path', '/tmp/tmpfwqm44yo']
+[2024-07-21T08:47:45.264+0000] {standard_task_runner.py:91} INFO - Job 455: Subtask data_processing
+[2024-07-21T08:47:45.286+0000] {task_command.py:426} INFO - Running <TaskInstance: churn_model_DAG.data_processing scheduled__2024-07-20T00:00:00+00:00 [running]> on host 6e10856c4017
+[2024-07-21T08:47:45.335+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='churn_model_DAG' AIRFLOW_CTX_TASK_ID='data_processing' AIRFLOW_CTX_EXECUTION_DATE='2024-07-20T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-07-20T00:00:00+00:00'
+[2024-07-21T08:47:45.336+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-07-21T08:47:45.353+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-07-21T08:47:45.354+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/model_pipeline_DAG.py", line 30, in run_data_processor
+    data_processor.clean_data()
+  File "/opt/airflow/dags/data_cleaning_OOP.py", line 100, in clean_data
+    data = pd.read_csv(input_path, delimiter=';', decimal=',')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 948, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 611, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1448, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1705, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/common.py", line 863, in get_handle
+    handle = open(
+             ^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/opt/airflow/data/dataset.csv'
+[2024-07-21T08:47:45.364+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=churn_model_DAG, task_id=data_processing, run_id=scheduled__2024-07-20T00:00:00+00:00, execution_date=20240720T000000, start_date=20240721T084745, end_date=20240721T084745
+[2024-07-21T08:47:45.371+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 455 for task data_processing ([Errno 2] No such file or directory: '/opt/airflow/data/dataset.csv'; 114)
+[2024-07-21T08:47:45.408+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2024-07-21T08:47:45.421+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-07-21T08:47:45.422+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
+[2024-07-21T08:52:59.107+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-07-21T08:52:59.130+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: churn_model_DAG.data_processing scheduled__2024-07-20T00:00:00+00:00 [queued]>
+[2024-07-21T08:52:59.275+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: churn_model_DAG.data_processing scheduled__2024-07-20T00:00:00+00:00 [queued]>
+[2024-07-21T08:52:59.277+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2024-07-21T08:52:59.287+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): data_processing> on 2024-07-20 00:00:00+00:00
+[2024-07-21T08:52:59.297+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=265) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-07-21T08:52:59.301+0000] {standard_task_runner.py:64} INFO - Started process 283 to run task
+[2024-07-21T08:52:59.298+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'churn_model_DAG', 'data_processing', 'scheduled__2024-07-20T00:00:00+00:00', '--job-id', '457', '--raw', '--subdir', 'DAGS_FOLDER/model_pipeline_DAG.py', '--cfg-path', '/tmp/tmp6ebh9w4b']
+[2024-07-21T08:52:59.305+0000] {standard_task_runner.py:91} INFO - Job 457: Subtask data_processing
+[2024-07-21T08:52:59.352+0000] {task_command.py:426} INFO - Running <TaskInstance: churn_model_DAG.data_processing scheduled__2024-07-20T00:00:00+00:00 [running]> on host 6e10856c4017
+[2024-07-21T08:52:59.399+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='churn_model_DAG' AIRFLOW_CTX_TASK_ID='data_processing' AIRFLOW_CTX_EXECUTION_DATE='2024-07-20T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-07-20T00:00:00+00:00'
+[2024-07-21T08:52:59.400+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-07-21T08:53:01.218+0000] {logging_mixin.py:188} INFO - Se van a dropear las siguientes por excesivos nulos:
+[2024-07-21T08:53:01.223+0000] {logging_mixin.py:188} INFO -  ['ownrent', 'numbcars', 'HHstatin', 'dwllsize']
+[2024-07-21T08:53:01.615+0000] {logging_mixin.py:188} INFO - Se van a imputar con la mediana las siguientes columnas:
+[2024-07-21T08:53:01.616+0000] {logging_mixin.py:188} INFO -  ['mou_Mean', 'totmrc_Mean', 'hnd_price', 'eqpdays']
+[2024-07-21T08:53:01.634+0000] {logging_mixin.py:188} INFO - Se van a dropear las siguientes por baja correlación con la columna churn:
+[2024-07-21T08:53:01.634+0000] {logging_mixin.py:188} INFO -  ['rev_Mean', 'da_Mean', 'ovrmou_Mean', 'ovrrev_Mean', 'vceovr_Mean', 'datovr_Mean', 'roam_Mean', 'change_mou', 'change_rev', 'avg6mou', 'avg6qty', 'avg6rev', 'phones', 'models', 'truck', 'rv', 'lor', 'adults', 'income', 'forgntvl']
+[2024-07-21T08:53:01.936+0000] {logging_mixin.py:188} INFO - Se van a imputar con la moda las siguientes columnas:
+[2024-07-21T08:53:01.939+0000] {logging_mixin.py:188} INFO -  ['hnd_webcap', 'ethnic', 'dualband', 'area', 'refurb_new', 'marital', 'prizm_social_one', 'creditcd', 'infobase', 'dwlltype', 'kid0_2']
+[2024-07-21T08:53:02.026+0000] {logging_mixin.py:188} INFO - Se van a dropear las siguientes por baja correlación con la columna churn:
+[2024-07-21T08:53:02.027+0000] {logging_mixin.py:188} INFO -  ['kid3_5', 'kid16_17', 'kid11_15', 'kid6_10']
+[2024-07-21T08:53:02.846+0000] {logging_mixin.py:188} INFO - Par: (plcd_vce_Mean, comp_vce_Mean) - Correlación: 0.95
+[2024-07-21T08:53:02.848+0000] {logging_mixin.py:188} INFO - Par: (ccrndmou_Mean, cc_mou_Mean) - Correlación: 0.83
+[2024-07-21T08:53:02.848+0000] {logging_mixin.py:188} INFO - Par: (recv_vce_Mean, inonemin_Mean) - Correlación: 0.85
+[2024-07-21T08:53:02.850+0000] {logging_mixin.py:188} INFO - Par: (plcd_vce_Mean, peak_vce_Mean) - Correlación: 0.81
+[2024-07-21T08:53:02.851+0000] {logging_mixin.py:188} INFO - Par: (plcd_vce_Mean, attempt_Mean) - Correlación: 0.99
+[2024-07-21T08:53:02.852+0000] {logging_mixin.py:188} INFO - Par: (plcd_vce_Mean, complete_Mean) - Correlación: 0.95
+[2024-07-21T08:53:02.854+0000] {logging_mixin.py:188} INFO - Par: (totcalls, totmou) - Correlación: 0.81
+[2024-07-21T08:53:02.854+0000] {logging_mixin.py:188} INFO - Par: (totrev, adjrev) - Correlación: 0.99
+[2024-07-21T08:53:02.855+0000] {logging_mixin.py:188} INFO - Par: (totcalls, adjmou) - Correlación: 0.81
+[2024-07-21T08:53:02.855+0000] {logging_mixin.py:188} INFO - Par: (totcalls, adjqty) - Correlación: 0.99
+[2024-07-21T08:53:02.856+0000] {logging_mixin.py:188} INFO - Par: (mou_Mean, avgmou) - Correlación: 0.81
+[2024-07-21T08:53:02.857+0000] {logging_mixin.py:188} INFO - Par: (avgmou, avgqty) - Correlación: 0.81
+[2024-07-21T08:53:02.858+0000] {logging_mixin.py:188} INFO - Par: (mou_Mean, avg3mou) - Correlación: 0.95
+[2024-07-21T08:53:02.858+0000] {logging_mixin.py:188} INFO - Par: (plcd_vce_Mean, avg3qty) - Correlación: 0.81
+[2024-07-21T08:53:05.742+0000] {python.py:237} INFO - Done. Returned value was: None
+[2024-07-21T08:53:05.746+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-07-21T08:53:05.772+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=churn_model_DAG, task_id=data_processing, run_id=scheduled__2024-07-20T00:00:00+00:00, execution_date=20240720T000000, start_date=20240721T085259, end_date=20240721T085305
+[2024-07-21T08:53:05.836+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2024-07-21T08:53:05.855+0000] {taskinstance.py:3503} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2024-07-21T08:53:05.859+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
+[2024-07-21T08:59:52.099+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-07-21T08:59:52.124+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: churn_model_DAG.data_processing scheduled__2024-07-20T00:00:00+00:00 [queued]>
+[2024-07-21T08:59:52.389+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: churn_model_DAG.data_processing scheduled__2024-07-20T00:00:00+00:00 [queued]>
+[2024-07-21T08:59:52.390+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2024-07-21T08:59:52.407+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): data_processing> on 2024-07-20 00:00:00+00:00
+[2024-07-21T08:59:52.418+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=515) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-07-21T08:59:52.419+0000] {standard_task_runner.py:64} INFO - Started process 525 to run task
+[2024-07-21T08:59:52.419+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'churn_model_DAG', 'data_processing', 'scheduled__2024-07-20T00:00:00+00:00', '--job-id', '464', '--raw', '--subdir', 'DAGS_FOLDER/model_pipeline_DAG.py', '--cfg-path', '/tmp/tmpxtdq9nh7']
+[2024-07-21T08:59:52.422+0000] {standard_task_runner.py:91} INFO - Job 464: Subtask data_processing
+[2024-07-21T08:59:52.477+0000] {task_command.py:426} INFO - Running <TaskInstance: churn_model_DAG.data_processing scheduled__2024-07-20T00:00:00+00:00 [running]> on host 6e10856c4017
+[2024-07-21T08:59:52.609+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='churn_model_DAG' AIRFLOW_CTX_TASK_ID='data_processing' AIRFLOW_CTX_EXECUTION_DATE='2024-07-20T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-07-20T00:00:00+00:00'
+[2024-07-21T08:59:52.613+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-07-21T08:59:54.290+0000] {logging_mixin.py:188} INFO - Se van a dropear las siguientes por excesivos nulos:
+[2024-07-21T08:59:54.292+0000] {logging_mixin.py:188} INFO -  ['ownrent', 'numbcars', 'HHstatin', 'dwllsize']
+[2024-07-21T08:59:54.424+0000] {logging_mixin.py:188} INFO - Se van a imputar con la mediana las siguientes columnas:
+[2024-07-21T08:59:54.425+0000] {logging_mixin.py:188} INFO -  ['mou_Mean', 'totmrc_Mean', 'hnd_price', 'eqpdays']
+[2024-07-21T08:59:54.432+0000] {logging_mixin.py:188} INFO - Se van a dropear las siguientes por baja correlación con la columna churn:
+[2024-07-21T08:59:54.432+0000] {logging_mixin.py:188} INFO -  ['rev_Mean', 'da_Mean', 'ovrmou_Mean', 'ovrrev_Mean', 'vceovr_Mean', 'datovr_Mean', 'roam_Mean', 'change_mou', 'change_rev', 'avg6mou', 'avg6qty', 'avg6rev', 'phones', 'models', 'truck', 'rv', 'lor', 'adults', 'income', 'forgntvl']
+[2024-07-21T08:59:54.655+0000] {logging_mixin.py:188} INFO - Se van a imputar con la moda las siguientes columnas:
+[2024-07-21T08:59:54.656+0000] {logging_mixin.py:188} INFO -  ['hnd_webcap', 'ethnic', 'dualband', 'area', 'refurb_new', 'marital', 'prizm_social_one', 'creditcd', 'infobase', 'dwlltype', 'kid0_2']
+[2024-07-21T08:59:54.747+0000] {logging_mixin.py:188} INFO - Se van a dropear las siguientes por baja correlación con la columna churn:
+[2024-07-21T08:59:54.747+0000] {logging_mixin.py:188} INFO -  ['kid3_5', 'kid16_17', 'kid11_15', 'kid6_10']
+[2024-07-21T08:59:55.410+0000] {logging_mixin.py:188} INFO - Par: (plcd_vce_Mean, comp_vce_Mean) - Correlación: 0.95
+[2024-07-21T08:59:55.411+0000] {logging_mixin.py:188} INFO - Par: (ccrndmou_Mean, cc_mou_Mean) - Correlación: 0.83
+[2024-07-21T08:59:55.411+0000] {logging_mixin.py:188} INFO - Par: (recv_vce_Mean, inonemin_Mean) - Correlación: 0.85
+[2024-07-21T08:59:55.413+0000] {logging_mixin.py:188} INFO - Par: (plcd_vce_Mean, peak_vce_Mean) - Correlación: 0.81
+[2024-07-21T08:59:55.414+0000] {logging_mixin.py:188} INFO - Par: (plcd_vce_Mean, attempt_Mean) - Correlación: 0.99
+[2024-07-21T08:59:55.414+0000] {logging_mixin.py:188} INFO - Par: (plcd_vce_Mean, complete_Mean) - Correlación: 0.95
+[2024-07-21T08:59:55.415+0000] {logging_mixin.py:188} INFO - Par: (totcalls, totmou) - Correlación: 0.81
+[2024-07-21T08:59:55.416+0000] {logging_mixin.py:188} INFO - Par: (totrev, adjrev) - Correlación: 0.99
+[2024-07-21T08:59:55.418+0000] {logging_mixin.py:188} INFO - Par: (totcalls, adjmou) - Correlación: 0.81
+[2024-07-21T08:59:55.418+0000] {logging_mixin.py:188} INFO - Par: (totcalls, adjqty) - Correlación: 0.99
+[2024-07-21T08:59:55.418+0000] {logging_mixin.py:188} INFO - Par: (mou_Mean, avgmou) - Correlación: 0.81
+[2024-07-21T08:59:55.419+0000] {logging_mixin.py:188} INFO - Par: (avgmou, avgqty) - Correlación: 0.81
+[2024-07-21T08:59:55.419+0000] {logging_mixin.py:188} INFO - Par: (mou_Mean, avg3mou) - Correlación: 0.95
+[2024-07-21T08:59:55.419+0000] {logging_mixin.py:188} INFO - Par: (plcd_vce_Mean, avg3qty) - Correlación: 0.81
+[2024-07-21T08:59:56.987+0000] {python.py:237} INFO - Done. Returned value was: None
+[2024-07-21T08:59:56.990+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-07-21T08:59:57.019+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=churn_model_DAG, task_id=data_processing, run_id=scheduled__2024-07-20T00:00:00+00:00, execution_date=20240720T000000, start_date=20240721T085952, end_date=20240721T085957
+[2024-07-21T08:59:57.065+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2024-07-21T08:59:57.119+0000] {taskinstance.py:3503} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2024-07-21T08:59:57.122+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
+[2024-07-21T09:01:25.941+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-07-21T09:01:25.958+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: churn_model_DAG.data_processing scheduled__2024-07-20T00:00:00+00:00 [queued]>
+[2024-07-21T09:01:26.046+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: churn_model_DAG.data_processing scheduled__2024-07-20T00:00:00+00:00 [queued]>
+[2024-07-21T09:01:26.047+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2024-07-21T09:01:26.053+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): data_processing> on 2024-07-20 00:00:00+00:00
+[2024-07-21T09:01:26.061+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=588) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-07-21T09:01:26.064+0000] {standard_task_runner.py:64} INFO - Started process 597 to run task
+[2024-07-21T09:01:26.064+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'churn_model_DAG', 'data_processing', 'scheduled__2024-07-20T00:00:00+00:00', '--job-id', '467', '--raw', '--subdir', 'DAGS_FOLDER/model_pipeline_DAG.py', '--cfg-path', '/tmp/tmp2h3iie3d']
+[2024-07-21T09:01:26.068+0000] {standard_task_runner.py:91} INFO - Job 467: Subtask data_processing
+[2024-07-21T09:01:26.110+0000] {task_command.py:426} INFO - Running <TaskInstance: churn_model_DAG.data_processing scheduled__2024-07-20T00:00:00+00:00 [running]> on host 6e10856c4017
+[2024-07-21T09:01:26.163+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='churn_model_DAG' AIRFLOW_CTX_TASK_ID='data_processing' AIRFLOW_CTX_EXECUTION_DATE='2024-07-20T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-07-20T00:00:00+00:00'
+[2024-07-21T09:01:26.164+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-07-21T09:01:26.952+0000] {logging_mixin.py:188} INFO - Se van a dropear las siguientes por excesivos nulos:
+[2024-07-21T09:01:26.953+0000] {logging_mixin.py:188} INFO -  ['ownrent', 'numbcars', 'HHstatin', 'dwllsize']
+[2024-07-21T09:01:27.010+0000] {logging_mixin.py:188} INFO - Se van a imputar con la mediana las siguientes columnas:
+[2024-07-21T09:01:27.011+0000] {logging_mixin.py:188} INFO -  ['mou_Mean', 'totmrc_Mean', 'hnd_price', 'eqpdays']
+[2024-07-21T09:01:27.018+0000] {logging_mixin.py:188} INFO - Se van a dropear las siguientes por baja correlación con la columna churn:
+[2024-07-21T09:01:27.018+0000] {logging_mixin.py:188} INFO -  ['rev_Mean', 'da_Mean', 'ovrmou_Mean', 'ovrrev_Mean', 'vceovr_Mean', 'datovr_Mean', 'roam_Mean', 'change_mou', 'change_rev', 'avg6mou', 'avg6qty', 'avg6rev', 'phones', 'models', 'truck', 'rv', 'lor', 'adults', 'income', 'forgntvl']
+[2024-07-21T09:01:27.224+0000] {logging_mixin.py:188} INFO - Se van a imputar con la moda las siguientes columnas:
+[2024-07-21T09:01:27.225+0000] {logging_mixin.py:188} INFO -  ['hnd_webcap', 'ethnic', 'dualband', 'area', 'refurb_new', 'marital', 'prizm_social_one', 'creditcd', 'infobase', 'dwlltype', 'kid0_2']
+[2024-07-21T09:01:27.311+0000] {logging_mixin.py:188} INFO - Se van a dropear las siguientes por baja correlación con la columna churn:
+[2024-07-21T09:01:27.312+0000] {logging_mixin.py:188} INFO -  ['kid3_5', 'kid16_17', 'kid11_15', 'kid6_10']
+[2024-07-21T09:01:27.974+0000] {logging_mixin.py:188} INFO - Par: (plcd_vce_Mean, comp_vce_Mean) - Correlación: 0.95
+[2024-07-21T09:01:27.975+0000] {logging_mixin.py:188} INFO - Par: (ccrndmou_Mean, cc_mou_Mean) - Correlación: 0.83
+[2024-07-21T09:01:27.975+0000] {logging_mixin.py:188} INFO - Par: (recv_vce_Mean, inonemin_Mean) - Correlación: 0.85
+[2024-07-21T09:01:27.977+0000] {logging_mixin.py:188} INFO - Par: (plcd_vce_Mean, peak_vce_Mean) - Correlación: 0.81
+[2024-07-21T09:01:27.978+0000] {logging_mixin.py:188} INFO - Par: (plcd_vce_Mean, attempt_Mean) - Correlación: 0.99
+[2024-07-21T09:01:27.978+0000] {logging_mixin.py:188} INFO - Par: (plcd_vce_Mean, complete_Mean) - Correlación: 0.95
+[2024-07-21T09:01:27.979+0000] {logging_mixin.py:188} INFO - Par: (totcalls, totmou) - Correlación: 0.81
+[2024-07-21T09:01:27.980+0000] {logging_mixin.py:188} INFO - Par: (totrev, adjrev) - Correlación: 0.99
+[2024-07-21T09:01:27.980+0000] {logging_mixin.py:188} INFO - Par: (totcalls, adjmou) - Correlación: 0.81
+[2024-07-21T09:01:27.981+0000] {logging_mixin.py:188} INFO - Par: (totcalls, adjqty) - Correlación: 0.99
+[2024-07-21T09:01:27.981+0000] {logging_mixin.py:188} INFO - Par: (mou_Mean, avgmou) - Correlación: 0.81
+[2024-07-21T09:01:27.981+0000] {logging_mixin.py:188} INFO - Par: (avgmou, avgqty) - Correlación: 0.81
+[2024-07-21T09:01:27.982+0000] {logging_mixin.py:188} INFO - Par: (mou_Mean, avg3mou) - Correlación: 0.95
+[2024-07-21T09:01:27.982+0000] {logging_mixin.py:188} INFO - Par: (plcd_vce_Mean, avg3qty) - Correlación: 0.81
+[2024-07-21T09:01:29.529+0000] {python.py:237} INFO - Done. Returned value was: None
+[2024-07-21T09:01:29.533+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-07-21T09:01:29.567+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=churn_model_DAG, task_id=data_processing, run_id=scheduled__2024-07-20T00:00:00+00:00, execution_date=20240720T000000, start_date=20240721T090125, end_date=20240721T090129
+[2024-07-21T09:01:29.618+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2024-07-21T09:01:29.655+0000] {taskinstance.py:3503} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2024-07-21T09:01:29.657+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
